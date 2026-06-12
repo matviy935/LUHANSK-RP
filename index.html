@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Луганськ RP — Офіційний сайт сервера</title>
+    <!-- Tailwind CSS для стилізації -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome для іконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a0505 0%, #2b0a0a 100%);
+        }
+        .accent-border {
+            border-image: linear-gradient(to right, #dc2626, #000000) 1;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-slate-100 min-h-screen font-sans">
+
+    <!-- Хедер сайту -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col lg:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-red-600 to-black p-2.5 rounded-xl shadow-lg">
+                    <i class="fa-solid fa-server text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">ОПГ-ЛУГАНСЬК RP</h1>
+                    <p class="text-xs text-slate-400">Офіційний інформаційний портал</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-2 items-center">
+                <a href="https://www.roblox.com/games/start?placeId=7711635737&launchData=joinCode%3Dpxxgc56f" target="_blank" class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 shadow-lg shadow-red-900/40">
+                    <i class="fa-solid fa-gamepad"></i> Грати в Roblox
+                </a>
+                <div class="bg-slate-800 px-3 py-2 rounded-lg text-xs font-mono border border-slate-700 flex items-center gap-2">
+                    <span class="text-slate-400">Код:</span>
+                    <span class="text-red-400 font-bold select-all">pxxgc56f</span>
+                </div>
+                <a href="https://t.me/luhansk_rp" target="_blank" class="bg-[#24A1DE] hover:bg-[#208bbf] text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 shadow-lg">
+                    <i class="fa-brands fa-telegram"></i> Наш Telegram
+                </a>
+                <a href="https://www.tiktok.com/@luhansk_rp1?_r=1&_t=ZN-96x8QVx3MEY" target="_blank" class="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 shadow-lg">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Головний контент -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Навігаційні вкладки -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-slate-800 pb-4">
+            <button onclick="switchTab('rules')" id="tab-rules" class="tab-btn px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2 bg-red-700 text-white">
+                <i class="fa-solid fa-scale-balanced"></i> Правила Серверу
+            </button>
+            <button onclick="switchTab('anketas')" id="tab-anketas" class="tab-btn px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i class="fa-solid fa-file-signature"></i> Анкети / Набір
+            </button>
+            <button onclick="switchTab('dpsu')" id="tab-dpsu" class="tab-btn px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i class="fa-solid fa-shield-halved"></i> Статут ДПСУ
+            </button>
+            <button onclick="switchTab('driving')" id="tab-driving" class="tab-btn px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800">
+                <i class="fa-solid fa-id-card"></i> Автошкола
+            </button>
+        </div>
+
+        <!-- ВКЛАДКА: ПРАВИЛА -->
+        <div id="content-rules" class="tab-content block">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold flex items-center gap-3">
+                    <span class="w-1 h-8 bg-red-500 rounded"></span> Правила та покарання на сервері
+                </h2>
+                <input type="text" id="rulesSearch" onkeyup="filterRules()" placeholder="Пошук правила..." class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-red-500 w-48 sm:w-64">
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4" id="rules-grid">
+                <!-- Картки правил будуть рендеритися автоматично за допомогою JS -->
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: АНКЕТИ -->
+        <div id="content-anketas" class="tab-content hidden">
+            
+            <!-- Яскравий банер для подачі анкет -->
+            <div class="bg-red-600/10 border border-red-500/20 rounded-2xl p-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <h3 class="text-xl font-bold text-red-400 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Бажаєте заповнити анкету?
+                    </h3>
+                    <p class="text-sm text-slate-300 mt-1">
+                        Оберіть потрібний шаблон нижче, натисніть кнопку <strong>«Копіювати»</strong>, заповніть її та надішліть нам у Telegram.
+                    </p>
+                </div>
+                <a href="https://t.me/luhansk_rp" target="_blank" class="bg-[#24A1DE] hover:bg-[#208bbf] text-white px-6 py-3 rounded-xl font-bold transition flex items-center gap-2 shadow-lg shadow-red-500/10 whitespace-nowrap">
+                    <i class="fa-brands fa-telegram text-lg"></i> Надіслати анкету сюди
+                </a>
+            </div>
+
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <span class="w-1 h-8 bg-red-500 rounded"></span> Доступні шаблони анкет
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="anketas-grid">
+                <!-- Картки анкет генеруються в JS -->
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: СТАТУТ ДПСУ -->
+        <div id="content-dpsu" class="tab-content hidden">
+            <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-red-400">Правила та обов'язки ДПСУ</h2>
+                        <p class="text-sm text-slate-400">Кожен співробітник зобов'язаний дотримуватися цих пунктів</p>
+                    </div>
+                    <span class="bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1 rounded-full text-xs font-semibold">
+                        Державна Прикордонна Служба
+                    </span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4" id="dpsu-rules-list">
+                    <!-- Пункти статуту генеруються в JS -->
+                </div>
+                
+                <div class="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-center">
+                    <p class="font-bold text-red-400">Слава Україні! 💙💛 Героям Слава!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: АВТОШКОЛА -->
+        <div id="content-driving" class="tab-content hidden">
+            <div class="grid lg:grid-cols-3 gap-8">
+                
+                <!-- Інформація про здачу -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                        <h3 class="text-xl font-bold mb-4 text-red-400 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info"></i> Важлива інформація
+                        </h3>
+                        <p class="text-slate-300 mb-4 leading-relaxed">
+                            Перед безпосереднім отриманням водійського посвідчення кожен громадянин зобов'язаний пройти теоретичний і практичний тести.
+                        </p>
+                        <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-xl text-sm text-red-300">
+                            <span class="font-bold text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> УВАГА!</span> 
+                            Один тест коштує <span class="font-bold text-white">8,000💵</span>. Оплату приймати виключно користувачам <span class="underline">@GL1ST_ORIGINAL</span> або <span class="underline">@Liashuk_18</span>. У разі провалу тестування гроші не повертаються!
+                        </div>
+                    </div>
+
+                    <!-- Категорії прав -->
+                    <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                        <h3 class="text-xl font-bold mb-4 text-red-400 flex items-center gap-2">
+                            <i class="fa-solid fa-car"></i> Доступні категорії прав
+                        </h3>
+                        <div class="grid sm:grid-cols-2 gap-3" id="license-categories">
+                            <!-- Категорії генеруються в JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Посадові особи та інструктори -->
+                <div class="space-y-6">
+                    <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                        <h3 class="text-xl font-bold mb-4 text-white flex items-center gap-2">
+                            <i class="fa-solid fa-users"></i> Відповідальні особи
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg border border-slate-800">
+                                <div>
+                                    <p class="text-xs text-slate-400">Видача прав</p>
+                                    <p class="font-bold text-red-400">@GL1ST_ORIGINAL</p>
+                                </div>
+                                <i class="fa-solid fa-file-signature text-slate-600"></i>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg border border-slate-800">
+                                <div>
+                                    <p class="text-xs text-slate-400">Приймання практики</p>
+                                    <p class="font-bold text-red-400">@Ilyaa2145</p>
+                                </div>
+                                <i class="fa-solid fa-gauge-high text-slate-600"></i>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg border border-slate-800">
+                                <div>
+                                    <p class="text-xs text-slate-400">Приймання тестів</p>
+                                    <p class="font-bold text-green-400">@Liashuk_18</p>
+                                </div>
+                                <i class="fa-solid fa-paste text-slate-600"></i>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg border border-slate-800">
+                                <div>
+                                    <p class="text-xs text-slate-400">Теорія та правила</p>
+                                    <p class="font-bold text-purple-400">@Vert1ik</p>
+                                </div>
+                                <i class="fa-solid fa-book text-slate-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Спливаюче повідомлення (Toast) -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-emerald-600 text-white px-6 py-3 rounded-xl shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 z-50 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-xl"></i>
+        <span class="font-semibold text-sm">Шаблон копійовано!</span>
+    </div>
+
+    <!-- Футер -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm text-slate-500">© 2026 ОПГ-ЛУГАНСЬК RP. Всі права захищені.</p>
+            <p class="text-xs text-slate-600 mt-2">Даний сайт створено виключно для ознайомлення з правилами гри у Roblox.</p>
+        </div>
+    </footer>
+
+    <!-- Логіка роботи сайту -->
+    <script>
+        // База даних правил
+        const rulesData = [
+            { id: "1.1", text: "Червоне світло", punishment: "Штраф 4,500к💵", cat: "driving" },
+            { id: "1.2", text: "NON RP (Нон РП)", punishment: "Штраф 5,000к💵 або Бан на 2 дні ⏳", cat: "general" },
+            { id: "1.3", text: "Погрози громадянам", punishment: "Бан на 3 дні ⏳", cat: "general" },
+            { id: "1.4", text: "Погрози Адміністрації", punishment: "Бан строком на 3 дні ⏳", cat: "general" },
+            { id: "1.6", text: "Таранити людей", punishment: "Штраф 4,000к💵 або Бан ⏳", cat: "driving" },
+            { id: "1.7", text: "НРП (NonRP)", punishment: "Штраф 8,000к💵 або Бан на 5 днів ⏳", cat: "general" },
+            { id: "1.8", text: "Адміністратор дав флай гравцю без причини", punishment: "Бан на 15 днів ⏳ + зняття з посади адміна", cat: "admin" },
+            { id: "1.9", text: "Вбивати Адміністрацію", punishment: "Бан на 3 дні ⏳", cat: "general" },
+            { id: "2.1", text: "Включені мигалки без причини", punishment: "Штраф 7,000к💵", cat: "driving" },
+            { id: "2.2", text: "Посадити у в'язницю без суду", punishment: "Бан на 5 днів ⏳", cat: "law" },
+            { id: "2.3", text: "Їзда по зустрічній смузі", punishment: "Штраф 1,000к💵", cat: "driving" },
+            { id: "2.4", text: "Їзда без сигналів повороту", punishment: "Штраф 1,000к💵", cat: "driving" },
+            { id: "2.5", text: "Використання небезпечних маневрів", punishment: "Штраф 2,000к💵🚗", cat: "driving" },
+            { id: "2.6", text: "Паркування без аварійки", punishment: "Штраф 2,000к💵", cat: "driving" },
+            { id: "2.7", text: "Проїзд по газону", punishment: "Штраф 2,000к🚓", cat: "driving" },
+            { id: "2.8", text: "Паркування на проїжджій частині", punishment: "Штраф 3,000к🚓", cat: "driving" },
+            { id: "2.9", text: "Їзда по суцільній смузі", punishment: "Штраф 2,000к💵", cat: "driving" },
+            { id: "3.1", text: "DM (Вбивство без причини)", punishment: "Штраф 5,000к💸", cat: "general" },
+            { id: "3.2", text: "РЕЙД без дозволу/порушення правил", punishment: "Бан НАЗАВЖДИ 🛑", cat: "general" },
+            { id: "3.3", text: "Стоп стики (порушення правил)", punishment: "Бан на 1 день ⏳ або Штраф 1,000к💵", cat: "general" },
+            { id: "3.4", text: "Вбити Власника сервера", punishment: "Бан на 5 днів ⏳⌚", cat: "general" },
+            { id: "3.5", text: "MG (MetaGaming)", punishment: "Бан на 2 дні ⏳⌚", cat: "general" },
+            { id: "3.6", text: "Заборонено розвертатися на дорозі (у недозволених місцях)", punishment: "Штраф 2,000к💵", cat: "driving" },
+            { id: "3.7", text: "Їзда з проколотими шинами (усі 4 шини)", punishment: "Штраф 1,200к💶", cat: "driving" },
+            { id: "3.8", text: "Їзда без фар у тумані", punishment: "Штраф 3,000к💵", cat: "driving" },
+            { id: "3.9", text: "Неповага до суду", punishment: "Штраф 3,000к👨‍⚖️", cat: "law" },
+            { id: "4.1", text: "Неоголошений строк порушника", punishment: "Штраф 4,000к💵", cat: "law" },
+            { id: "4.2", text: "Фейк Суддя", punishment: "Бан на 5 днів ⏳⌚", cat: "law" },
+            { id: "4.3", text: "Використання стоп-стиків", punishment: "Дозволено кидати всюди, крім КПП! ✅", cat: "general" },
+            { id: "4.4", text: "Стрілянина в поліцейському відділку", punishment: "Бан відразу на 2 дні ⏳", cat: "general" },
+            { id: "4.5", text: "Світлошумова граната (флешка) без причини", punishment: "Бан на 1 день ⏳", cat: "general" },
+            { id: "4.6", text: "Встановлення GPS трекера на авто особи, що не в розшуку", punishment: "Штраф 1,000к💵", cat: "general" },
+            { id: "4.7", text: "Стрілянина по людині, яка не несе загрози", punishment: "Штраф 8,000к💵 або Бан на 2 дні ⏳", cat: "general" },
+            { id: "4.8", text: "Стріляти/вбивати з даху банку", punishment: "Бан на 2 дні ⏳", cat: "general" },
+            { id: "4.9", text: "Зміна коду сервера", punishment: "Попередження (Варн) 3 рази", cat: "admin" }
+        ];
+
+        // Список категорій прав
+        const categories = [
+            { code: "A1", desc: "легкові мотоцикли (пітбайки)" },
+            { code: "A", desc: "швидкісні мотоцикли" },
+            { code: "B1", desc: "малі вантажні машини" },
+            { code: "B", desc: "легковий автомобіль" },
+            { code: "C1", desc: "вантажна машина" },
+            { code: "D1", desc: "фура (велика вантажна машина)" },
+            { code: "D", desc: "автобус" },
+            { code: "Be", desc: "легковий автомобіль з причепом" },
+            { code: "C1E", desc: "мала вантажна машина з причепом" },
+            { code: "Ce", desc: "вантажна машина з причепом" },
+            { code: "D1E", desc: "мікроавтобус з причепом" },
+            { code: "DE", desc: "автобус з причепом" },
+            { code: "T", desc: "мотоблоки та інше (квадроцикли, гідроцикли, баггі)" }
+        ];
+
+        // Правила ДПСУ
+        const dpsuRules = [
+            "Поважати всіх гравців та співробітників ДПСУ.",
+            "Виконувати накази старшого складу.",
+            "Дотримуватися правил серверу.",
+            "Під час служби перебувати у встановленій формі.",
+            "Не залишати пост без дозволу керівництва.",
+            "Коректно спілкуватися з громадянами та колегами.",
+            "Перевіряти документи лише в рамках RP-ситуації.",
+            "Не застосовувати зброю без вагомої причини.",
+            "Не зловживати службовими повноваженнями.",
+            "Не використовувати службову техніку в особистих цілях.",
+            "Заборонено NonRP-поведінку.",
+            "Заборонено DM (вбивство без RP-причини).",
+            "Заборонено MG (використання інформації поза RP).",
+            "Заборонено RK (повернення до RP-ситуації після смерті).",
+            "Заборонено TK (шкода союзникам без причини).",
+            "Заборонено образи, провокації та токсичну поведінку.",
+            "Не розголошувати службову інформацію стороннім особам.",
+            "Підтримувати дисципліну та порядок у фракції.",
+            "Допомагати новим співробітникам освоїтися у службі.",
+            "Пам'ятати, що співробітник ДПСУ є прикладом для інших гравців."
+        ];
+
+        // Шаблони анкет
+        const anketasData = [
+            {
+                title: "Анкета до Інкасації",
+                tag: "incas",
+                fields: "1. Ваш @ в телеграмі:\n2. Ваше ім'я:\n3. Ваше @ в грі:\n4. Ваш вік:\n5. Ваше вміння водити (0/10):\n6. Ваше знання РП (0/10):\n7. Чи будете виконувати завдання старших:\n8. Ваше знання правил (0/10):\n\nПідпис: @GL1ST_ORIGINAL"
+            },
+            {
+                title: "Анкета в ОПГ-ЛУГАНСЬК RP",
+                tag: "opg",
+                fields: "1. Нік в грі:\n2. Юз в тг:\n3. Вік:\n4. Юз в рб:\n5. Ви маєте ліцензію на пушки?:\n6. Готові захищати клан коли буде рейд?:\n7. Коротко про себе:\n8. Що ви будете робити для клану?:\n9. Ваша стрільба (0/10)?:\n\nОчікуємо на вашу заявку!"
+            },
+            {
+                title: "Заява на Ліцензію",
+                tag: "license",
+                fields: "Ваш username:\n1. Чому вам потрібно це:\n2. Чи ви будете його правильно використовувати, не порушуючи правил серверу:"
+            },
+            {
+                title: "Анкета для вступу в Поліцію 👮‍♀️",
+                tag: "police",
+                fields: "1. Ваш нік:\n2. Ваш @ або нік в грі:\n3. Ваш вік (мінімум 10-11 років):\n4. Чому саме наша поліція???\n5. Чому саме поліція?\n6. Чи є у вас вже досвід, якщо є, то де саме?\n\n(Після прийняття буде надано вибір відділу: Патруль, БСУК)"
+            },
+            {
+                title: "Анкета на вступ до ДПСУ 🛂",
+                tag: "dpsu_anketa",
+                fields: "👤 Ім'я та прізвище (RP):\n➜ \n🎮 Нікнейм у Roblox:\n➜ \n🎂 Вік:\n➜ \n🌍 Країна проживання:\n➜ \n⏰ Онлайн на день:\n➜ \n🎤 Чи маєте Discord та мікрофон?\n➜ Так / Ні\n🚔 Досвід у RolePlay-службах:\n➜ \n🛂 Чому хочете вступити саме до ДПСУ?\n➜ \n📚 Що входить в обов'язки прикордонника?\n➜ Перевірка документів, контроль кордону, боротьба з порушниками та контрабандою.\n⚡ Ваші сильні сторони:\n➜ \n📖 Чи готові вивчити правила серверу та ДПСУ?\n➜ Так / Ні\n🤝 Чи готові виконувати накази старшого складу?\n➜ Так / Ні\n📝 Додаткова інформація про себе:\n➜ \n🇺🇦 Слава Україні! \n➜ Героям Слава!"
+            },
+            {
+                title: "Анкета на Суддю 👨‍⚖️",
+                tag: "judge",
+                fields: "ВАШЕ ІМ'Я:\nЧОМУ ХОЧЕТЕ СТАТИ:\nСКІЛЬКИ ВАМ РОКІВ:\nЧИ ЗНАЄТЕ ВИ ПРАВИЛА СЕРВЕРА:\n\n(Обов'язкова умова: Грати на сервері від 2 до 4 годин щодня!)"
+            },
+            {
+                title: "Анкета на Прокурора 💼",
+                tag: "prosecutor",
+                fields: "1. Ім'я / вік 👤:\n2. Нік у грі:\n3. Чи є у вас досвід прокурора на інших RP серверах:\n4. Чому ви хочете стати прокурором:\n5. Як ви поводитеся з підозрюваними та колегами:\n6. Сильні сторони:\n7. Слабкі сторони:\n8. Чи готові ви брати участь у судових засіданнях:\n9. Знання правил RP та дорожнього руху:\n10. Чи є ви адміністратором на нашому сервері:\n11. Скільки граєте у Emergency Hamburg:\n12. Додаткова інформація про вас:"
+            },
+            {
+                title: "Анкета для здачі на права 🚗",
+                tag: "driver_test",
+                fields: "1. Ваш @ в грі:\n2. Ваш @ в тг:\n3. Навіщо вам права:\n4. Що ви будете робити з отриманням прав:\n5. Ваш вік:\n6. Чи був у вас вже досвід у водінні авто:\n\nПідписи: @Liashuk_18, @GL1ST_ORIGINAL"
+            },
+            {
+                title: "Анкета на вступ в ДБР 🛡️",
+                tag: "dbr",
+                fields: "1. ВАШЕ ІМ'Я:\n2. ВАШ НІК В РОБЛОКСІ:\n3. СКІЛЬКИ ВАМ РОКІВ:\n4. СКІЛЬКИ ВИ ГОТОВІ ПРИДІЛЯТИ ЧАСУ ДЛЯ СЕРВЕРА:\n5. СКІЛЬКИ У ВАС ХР:\n6. СКІЛЬКИ ГРАЄТЕ В ГРУ Emergency Hamburg:\n7. ЩО ТАКЕ ROLE PLAY:\n8. ЩО ТАКЕ НРП:\n9. ЩО ТАКЕ ДМ:\n10. ЧИ БУВ ДОСВІД В ПРАВООХОРОННИХ ОРГАНАХ:\n11. ЧИ ГОТОВІ ПІДКОРЯТИСЬ НАКАЗАМ СТАРШИХ (ТАК-НІ):\n12. ЩО БУДЕТЕ РОБИТИ ЯКЩО ГРАВЕЦЬ ПОРУШИТЬ ПРАВИЛА:\n13. ЩО ЗРОБИТЕ ЯКЩО ВАШ НАПАРНИК ПОРУШИТЬ РП-ПРАВИЛА:\n14. ЧИ Є У ВАС МІКРОФОН-ВОЙС:\n15. НА ЧОМУ ВИ ГРАЄТЕ? (КОМП'ЮТЕР/ТЕЛЕФОН):"
+            },
+            {
+                title: "Анкета на ДСНС 🚨🚒",
+                tag: "dsns",
+                fields: "1. Ім'я:\n2. Вік:\n3. Нік в грі:\n4. Юз в роблоксі:\n5. Юз в тг:\n6. Готові працювати в ДСНС?:\n7. Що таке ДСНС?:\n8. Що таке ОРС?:\n9. Коротко про себе:\n10. Скільки годин на день ви будете працювати?:\n11. Що таке вогонь?:\n12. Готові допомагати людям в критичному стані або ситуації?:\n\nПідписи: @KoMaRiK_kkk_228, @ventilation_zx, @ytkaaaaar"
+            }
+        ];
+
+        // Відображення правил
+        function renderRules() {
+            const grid = document.getElementById('rules-grid');
+            grid.innerHTML = rulesData.map(rule => `
+                <div class="bg-slate-900/50 hover:bg-slate-900 border border-slate-800 rounded-xl p-4 transition duration-200 flex flex-col justify-between gap-3 rule-card">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-red-600/20 text-red-400 border border-red-500/20 px-2 py-0.5 rounded text-xs font-mono font-bold mt-0.5">
+                            ${rule.id}
+                        </span>
+                        <p class="font-semibold text-slate-200 rule-title">${rule.text}</p>
+                    </div>
+                    <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800/80">
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-wider block mb-1">Покарання</span>
+                        <p class="text-sm text-red-500 font-medium">${rule.punishment}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Відображення анкет
+        function renderAnketas() {
+            const grid = document.getElementById('anketas-grid');
+            grid.innerHTML = anketasData.map(anketa => `
+                <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5 flex flex-col justify-between gap-4">
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-100 mb-2">${anketa.title}</h3>
+                        <div class="bg-slate-950/80 rounded-lg p-3 max-h-48 overflow-y-auto text-xs font-mono text-slate-400 border border-slate-900">
+                            <pre class="whitespace-pre-wrap" id="fields-${anketa.tag}">${anketa.fields}</pre>
+                        </div>
+                    </div>
+                    <button onclick="copyToClipboard('fields-${anketa.tag}')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-100 text-sm font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 border border-slate-700">
+                        <i class="fa-regular fa-copy"></i> Копіювати шаблон
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Відображення статуту ДПСУ
+        function renderDpsu() {
+            const list = document.getElementById('dpsu-rules-list');
+            list.innerHTML = dpsuRules.map((rule, idx) => `
+                <div class="flex gap-3 bg-slate-900/40 p-3 rounded-lg border border-slate-800/60">
+                    <span class="text-red-400 font-bold font-mono text-sm">${idx + 1}.</span>
+                    <p class="text-sm text-slate-300">${rule}</p>
+                </div>
+            `).join('');
+        }
+
+        // Відображення категорій автошколи
+        function renderCategories() {
+            const grid = document.getElementById('license-categories');
+            grid.innerHTML = categories.map(cat => `
+                <div class="flex items-center gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
+                    <span class="bg-red-500 text-slate-950 font-black px-2.5 py-1 rounded text-xs">${cat.code}</span>
+                    <span class="text-xs text-slate-300">${cat.desc}</span>
+                </div>
+            `).join('');
+        }
+
+        // Пошук правил
+        function filterRules() {
+            const input = document.getElementById('rulesSearch').value.toLowerCase();
+            const cards = document.getElementsByClassName('rule-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].querySelector('.rule-title').innerText.toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Перемикання вкладок
+        function switchTab(tabName) {
+            // Приховуємо всі вкладки
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.replace('block', 'hidden');
+            });
+            // Показуємо вибрану
+            document.getElementById(`content-${tabName}`).classList.replace('hidden', 'block');
+
+            // Оновлюємо стилі кнопок
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-400 hover:text-white hover:bg-slate-800";
+            });
+            
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.className = "tab-btn px-5 py-2.5 rounded-lg text-sm font-semibold transition flex items-center gap-2 bg-red-700 text-white";
+        }
+
+        // Копіювання в буфер обміну
+        function copyToClipboard(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('Помилка копіювання: ', err);
+            });
+        }
+
+        // Показ тосту
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0', 'translate-y-20');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-20');
+            }, 2500);
+        }
+
+        // Ініціалізація сторінки
+        window.onload = function() {
+            renderRules();
+            renderAnketas();
+            renderDpsu();
+            renderCategories();
+        };
+    </script>
+</body>
+</html>
